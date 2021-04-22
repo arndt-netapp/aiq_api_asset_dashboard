@@ -1,11 +1,15 @@
 #! /usr/bin/env python3
 
 # Sample code to use the NetApp Active IQ API.
+#
 # 2021-04-22 arndt@netapp.com.
 #
+# This is sample code - no guarantees, no warranties, but ask me if you have
+# questions about it.
+#
 # Requirements:
-#   1. Python 3 and the imported libraries.
-#   2. Create the serials.txt and refresh-token.txt files as documented below.
+#   1. Python 3 and the libraries imported below.
+#   2. Create the serials.txt and refresh-token.txt files, as documented below.
 
 import json
 import http.client
@@ -67,7 +71,7 @@ if res.status != 200:
 token_data = json.loads(res.read().decode("utf-8"))
 
 # Write the newly updated refresh_token to the file, as the one we just used
-# is no longer valid. We must use this new access token the next time we get
+# is no longer valid. We must use this new refresh token the next time we get
 # a new set of refresh and access tokens.
 refresh_token_fh = open(refresh_token_file, "w")
 refresh_token_fh.write(token_data['refresh_token'])
@@ -76,7 +80,7 @@ refresh_token_fh.close()
 # Now that we have handled all the tokens, we can use the access_token in our
 # API calls to AIQ.
 #
-# In this example, we get the asset-dashboard API output for for our previously
+# In this example, we get the asset-dashboard API output for our previously
 # defined list of serials.
 headers = {
     'accept': "application/json",
